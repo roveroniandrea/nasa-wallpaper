@@ -1,0 +1,22 @@
+{
+  "name": "nasa-wallpaper",
+  "version": "1.0.0",
+  "description": "Set your wallpaper as NASA image of the day",
+  "main": "index.js",
+  "scripts": {
+    "start":"node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roveroniandrea/nasa-wallpaper.git"
+  },
+  "author": "Andrea Roveroni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roveroniandrea/nasa-wallpaper/issues"
+  },
+  "homepage": "https://github.com/roveroniandrea/nasa-wallpaper#readme",
+  "dependencies": {
+    "wallpaper": "^4.4.1"
+  }
+}
