@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/roveroniandrea/nasa-wallpaper#readme",
   "dependencies": {
+    "jimp": "^0.16.0",
     "node-notifier": "^8.0.0",
     "wallpaper": "^4.4.1"
   }
