@@ -68,6 +68,8 @@ app.whenReady().then(() => {
   });
   tray.setContextMenu(trayMenu);
 
+  electronSetImage(true);
+
   function electronSetImage(todayImage) {
     trayMenu.getMenuItemById('BTN_APOD').enabled = false;
     trayMenu.getMenuItemById('BTN_RANDOM').enabled = false;
