@@ -4,7 +4,7 @@
   "description": "Set your wallpaper as NASA image of the day",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "electron electron/electron-app.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/roveroniandrea/nasa-wallpaper#readme",
   "dependencies": {
+    "electron": "^10.1.0",
     "jimp": "^0.16.0",
+    "mustache": "^4.0.1",
     "node-notifier": "^8.0.0",
     "wallpaper": "^4.4.1"
   }

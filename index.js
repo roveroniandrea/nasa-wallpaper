@@ -3,6 +3,7 @@ const wallpaper = require('wallpaper');
 const https = require('https');
 const fs = require('fs');
 const Jimp = require('jimp');
+const Mustache = require('mustache');
 
 /**
  * Percorso per la api key
@@ -29,20 +30,12 @@ const downloadedImage = 'assets/image.png';
  */
 const editedImage = 'assets/image-edit.png';
 
-let notifyStartup = function (isToday) {
-  var notifier = new WindowsToaster({
-    withFallback: false,
-    customPath: undefined,
-  });
+/** Template mustache per index.html */
+let mustacheFile = '';
 
-  notifier.notify({
-    title: 'NASA wallpaper',
-    message: isToday ? "Requesting today's astronomical photo ASAP!" : 'Requesting another beatiful photo...',
-    sound: false,
-    appID: 'NASA wallpaper',
-    id: 1,
-  });
-};
+fs.readFile('electron/index.mustache', (err, data) => {
+  mustacheFile = data.toString();
+});
 
 /**
  * Specifica se richiedere l'iimagine di oggi
@@ -55,20 +48,24 @@ const promise = todayImage ? requestImageData(nasaAPOD) : retrieveRandomImage();
 
 // Toast notification
 if (todayImage) {
-  notifyStartup(todayImage);
+  // notifyStartup(todayImage);
 }
 
 // Catena orribile di promise
 promise
   .catch((err) => console.log(err))
   .then((data) => {
+    fs.writeFile('electron/index.html', Mustache.render(mustacheFile, { description: data.explanation }), () => {});
     retrieveImage(data.hdurl, downloadedImage)
       .catch((err) => console.log(err))
       .then((res) => {
         if (!res) {
           return;
         }
-        applyText(downloadedImage, editedImage, 'Plugin by @roveroniandrea')
+        setWallpaper(downloadedImage)
+          .catch((err) => console.log(err))
+          .then(() => console.log('Wallpaper set'));
+        /*applyText(downloadedImage, editedImage, 'Plugin by @roveroniandrea')
           .catch((err) => console.log(err))
           .then((res) => {
             if (!res) {
@@ -77,7 +74,7 @@ promise
             setWallpaper(editedImage)
               .catch((err) => console.log(err))
               .then(() => console.log('Wallpaper set'));
-          });
+          });*/
       });
   });
 
@@ -123,7 +120,7 @@ function retrieveImage(hdurl, downloadPath) {
       res.pipe(file);
       res.on('data', (chunk) => {
         bytes += chunk.length;
-        console.log('Progress ' + (bytes * 100) / totalBytes + '%');
+        console.log('PROGRESS' + bytes / totalBytes);
       });
       file.on('finish', function () {
         resolve(true);
