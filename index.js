@@ -56,7 +56,7 @@ promise
   .catch((err) => console.log(err))
   .then((data) => {
     fs.writeFile('electron/index.html', Mustache.render(mustacheFile, { description: data.explanation }), () => {});
-    retrieveImage(data.hdurl, downloadedImage)
+    retrieveImage(data.hdurl || data.url, downloadedImage)
       .catch((err) => console.log(err))
       .then((res) => {
         if (!res) {
@@ -96,7 +96,11 @@ function requestImageData(url) {
       res.on('end', () => {
         const jsonBody = JSON.parse(body);
         if (jsonBody.media_type !== 'image') {
-          return retrieveRandomImage();
+          console.log('Image is not an image. Ehm...');
+          retrieveRandomImage().then(
+            (res) => resolve(res),
+            (rej) => reject(rej)
+          );
         } else {
           resolve(jsonBody);
         }

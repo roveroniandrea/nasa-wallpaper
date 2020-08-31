@@ -98,7 +98,10 @@ app.whenReady().then(() => {
       }
     });
 
+    child.stdout.pipe(process.stdout);
+
     child.on('exit', () => {
+      console.log('Process exited');
       win.setProgressBar(-1, 'none');
       win.setOpacity(0);
       win.hide();
