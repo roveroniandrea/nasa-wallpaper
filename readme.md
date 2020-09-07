@@ -15,4 +15,4 @@ Run nodeJS:
 ## How it works
 Calling `npm start` launches the Electron app. This displays a Tray icon in your application bar:
 
-![Tray image](https://github.com/roveroniandrea/nasa-wallpaper/tree/master/docs/tray.png)
+![Tray image](./docs/tray.png)
