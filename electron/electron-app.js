@@ -1,7 +1,7 @@
 const { app, BrowserWindow, screen, Tray, Menu, ipcMain, shell } = require('electron');
 const spawn = require('child_process').spawn;
 const fs = require('fs');
-const nasaIcon = 'assets/nasa-icon.png';
+const nasaIcon = 'assets/nasa-icon.ico';
 
 /** * Tray è l'icona in basso a dx */
 let tray = null;

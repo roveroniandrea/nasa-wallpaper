@@ -1,4 +1,6 @@
 node_modules
 package-lock.json
-assets/
+assets/api-key.txt
+assets/image.png
+assets/image-edit.png
 electron/index.html
